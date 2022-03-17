@@ -27,7 +27,7 @@ const Home = () => {
       <ul>
         { pokemons.map((pokemon) => (
           <li key={pokemon.id} >
-          <Link to={`user/${pokemon.id}`}>{pokemon.name}></Link>>
+          <Link to={`pokemon/${pokemon.name}`}>{pokemon.name}</Link>
           </li>
         ))}
       </ul>
