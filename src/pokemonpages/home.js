@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 const Home = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -24,8 +25,10 @@ const Home = () => {
   } else {
     return (
       <ul>
-        {pokemons && pokemons.map && pokemons.map((pokemon) => (
-          <li key={pokemon.id}>{pokemon.name}</li>
+        { pokemons.map((pokemon) => (
+          <li key={pokemon.id} >
+          <Link to={`user/${pokemon.id}`}>{pokemon.name}></Link>>
+          </li>
         ))}
       </ul>
     );
