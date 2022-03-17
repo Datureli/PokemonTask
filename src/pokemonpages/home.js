@@ -4,12 +4,12 @@ const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [pokemons, setPokemons] = useState([]);
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon")
+    fetch("https://pokeapi.co/api/v2/pokemon/")
       .then(async response => response.json())
       .then(
         (data) => {
           setIsLoaded(true);
-          setPokemons(data);
+          setPokemons(data.results);
         },
         (error) => {
           setIsLoaded(true);
@@ -24,7 +24,7 @@ const Home = () => {
   } else {
     return (
       <ul>
-        {pokemons.map((pokemon) => (
+        {pokemons && pokemons.map && pokemons.map((pokemon) => (
           <li key={pokemon.id}>{pokemon.name}</li>
         ))}
       </ul>
