@@ -7,7 +7,7 @@ const Pokemonpages = () => {
     <BrowserRouter>
       <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/pokemon/:name" element = {<User />} />
+          <Route path="/pokemon/:id" element = {<User />} />
       </Routes>
     </BrowserRouter>
   );

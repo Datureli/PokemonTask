@@ -1,12 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-const User = (props) => {
-  const {name} = useParams()
-  return (
-    <div>
-      <h1>Pokemon Details</h1>
-      ID: {name}
-    </div>
-  );
+const User = () => {
+  let { id } = useParams();
+
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [pokemon, setPokemon] = useState([]);
+  useEffect(() => {
+    const fetchData = async (id) => {
+      try {
+        const response = await fetch(`https://pokeapi.co/api/v2/type/`);
+        const data = await response.json();
+        setPokemon(data.results);
+        setIsLoaded(true);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
+  }, []);
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+  if (pokemon) {
+    return (
+      <div>
+        id {id}
+        <h1>Pokemon Details</h1>
+        {pokemon.type}
+      </div>
+    );
+  }
 };
 export default User;
