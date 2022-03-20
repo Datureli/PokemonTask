@@ -13,6 +13,7 @@ const Home = () => {
         const data = await response.json();
 
         setPokemons(data.results);
+        console.log(data)
       } catch (e) {
         setError(e.message || "Something went wrong");
       }
@@ -28,13 +29,14 @@ const Home = () => {
     return <div>Loading...</div>;
   } else {
     return (
-      <ul>
-        {pokemons && pokemons.map((pokemon, index) => (
-          <li key={index}>
-            <Link to={`pokemon/${index + 1}`}>{pokemon.name}</Link>
-          </li>
-        ))}
-      </ul>
+        <ul>
+          {pokemons && pokemons.map((pokemon, index) => (
+            <li key={index}>
+              <Link to={`pokemon/${index + 1}`}>{pokemon.name}</Link>
+            </li>
+         
+          ))}
+        </ul>
     );
   }
 };

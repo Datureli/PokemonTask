@@ -12,8 +12,8 @@ const User = () => {
   }, [id]);
   const fetchData = async (id) => {
     try {
-      const response = await fetch(`https://pokeapi.co/api/v2/type/${id}`);
-      const data = await response.json();
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+      const data = await response.json()
       console.log(data);
       setPokemon(data);
       setIsLoaded(true);
@@ -33,8 +33,10 @@ const User = () => {
       <div>
         id {id}
         <h1>Pokemon Details</h1>
-        <div>{pokemon.type}</div>
-        <div>{pokemon.name}</div>
+        <div>Name: {pokemon.name}</div>
+        <div>Weight: {pokemon.weight}</div>
+        <div>Height: {pokemon.height}</div>
+
       </div>
     );
   }
