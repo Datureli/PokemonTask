@@ -6,19 +6,22 @@ const User = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [pokemon, setPokemon] = useState([]);
+
   useEffect(() => {
-    const fetchData = async (id) => {
-      try {
-        const response = await fetch(`https://pokeapi.co/api/v2/type/`);
-        const data = await response.json();
-        setPokemon(data.results);
-        setIsLoaded(true);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchData();
-  }, []);
+    fetchData(id);
+  }, [id]);
+  const fetchData = async (id) => {
+    try {
+      const response = await fetch(`https://pokeapi.co/api/v2/type/${id}`);
+      const data = await response.json();
+      console.log(data);
+      setPokemon(data);
+      setIsLoaded(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   if (error) {
     return <div>Error: {error.message}</div>;
   }
@@ -30,7 +33,8 @@ const User = () => {
       <div>
         id {id}
         <h1>Pokemon Details</h1>
-        {pokemon.type}
+        <div>{pokemon.type}</div>
+        <div>{pokemon.name}</div>
       </div>
     );
   }
