@@ -32,8 +32,7 @@ const User = () => {
     return (
       <div>
         id {id}
-        <h1>Pokemon Details</h1>
-        <div>Name: {pokemon.name}</div>
+        <h1>{pokemon.name}</h1>
         <div>Weight: {pokemon.weight}</div>
         <div>Height: {pokemon.height}</div>
 

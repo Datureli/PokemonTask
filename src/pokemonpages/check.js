@@ -1,28 +1,8 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-const Home = () => {
-  // const [error, setError] = useState(null);
-   const [isLoaded, setIsLoaded] = useState(false);
-  const [pokemons, setPokemons] = useState([]);
-  useEffect(() => {
-     const fetchPokemonName = async () => {
-     Promise.all([
-      await fetch("https://pokeapi.co/api/v2/pokemon/"),
-      await fetch("https://pokeapi.co/api/v2/type/"),
-     ])
-     .then(response => {
-      response.forEach(values => values)
-      }).catch(error => {})  
-    };
-    fetchPokemonName();
-  }, []);
-  const usePokemons = pokemons.map((pokemon) => {
-    return (
-      <li key={`${pokemon.id}-${pokemon.name}`}>
-        <Link to={`pokemon/${pokemon.name}`}>{pokemon.name}{pokemon.type}</Link>
-      </li>
-    );
-  });
-  return <div>{pokemons && usePokemons}</div>;
-};
 
+
+const urls = ['https://pokeapi.co/api/v2/pokemon/', 'https://pokeapi.co/api/v2/nature/'];
+  try{
+    let res = await Promise.all(urls.map(e => fetch(e)))
+    let resJson = await Promise.all(res.map(e => e.json()))
+    resJson = resJson.map(e => e.results[0].name.first)
+    console.log(resJson)

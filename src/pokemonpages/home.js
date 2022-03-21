@@ -4,6 +4,7 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
   const [pokemons, setPokemons] = useState([]);
+  const [nature, useNature] = useState([])
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,7 +33,7 @@ const Home = () => {
         <ul>
           {pokemons && pokemons.map((pokemon, index) => (
             <li key={index}>
-              <Link to={`pokemon/${index + 1}`}>{pokemon.name}</Link>
+              <Link to={`pokemon/${index + 1}`}>{pokemon.name}{pokemon.type}</Link>
             </li>
          
           ))}
