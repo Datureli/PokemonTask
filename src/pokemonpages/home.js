@@ -3,41 +3,55 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
+  const [loadMore, setLoadMore] = useState(
+    `https://pokeapi.co/api/v2/pokemon?limit=20/`
+  );
   const [pokemons, setPokemons] = useState([]);
-  const [nature, useNature] = useState([])
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/`
+
+  const fetchData = async () => {
+    const response = await fetch(loadMore);
+    const data = await response.json();
+
+    setLoadMore(data.next);
+    console.log(data);
+
+    function createPokemon(results) {
+      results.forEach(async (pokemon) => {
+        const response2 = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
         );
-        const data = await response.json();
+        const data = await response2.json();
 
-        setPokemons(data.results);
-        console.log(data)
-      } catch (e) {
-        setError(e.message || "Something went wrong");
-      }
+        setPokemons((currentList) => [...currentList, data]);
+      });
+    }
 
-      setIsLoaded(false);
-    };
+    createPokemon(data.results);
+    setIsLoaded(false);
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
-  
+
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (isLoaded) {
     return <div>Loading...</div>;
   } else {
     return (
+      <div>
         <ul>
-          {pokemons && pokemons.map((pokemon, index) => (
-            <li key={index}>
-              <Link to={`pokemon/${index + 1}`}>{pokemon.name}{pokemon.type}</Link>
-            </li>
-         
-          ))}
+          {pokemons &&
+            pokemons.map((pokemon, index) => (
+              <li key={index}>
+                <Link to={`pokemon/${index + 1}`}>{pokemon.name}</Link>
+              </li>
+            ))}
         </ul>
+        {<p>Loading pokemons</p>}
+        {<button onClick={() => fetchData()}>Load more</button>}
+      </div>
     );
   }
 };
