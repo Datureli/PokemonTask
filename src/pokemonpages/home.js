@@ -41,17 +41,27 @@ const Home = () => {
   } else {
     return (
       <div>
+      <div className="pokemonContainer">
         <ul>
           {pokemons &&
             pokemons.map((pokemon, index) => (
               <li key={index}>
-                <Link to={`pokemon/${index + 1}`}>{pokemon.name}</Link>
+                <Link to={`pokemon/${index + 1}`}>
+                  <h2>{pokemon.name}</h2>
+                </Link>
+                {pokemon.types[0].type.name}
+                <img
+                  src={pokemon.sprites.other.dream_world.front_default}
+                  alt={"pokemon img"}
+                ></img>
               </li>
             ))}
         </ul>
+      
+      </div>
         {<p>Loading pokemons</p>}
         {<button onClick={() => fetchData()}>Load more</button>}
-      </div>
+        </div>
     );
   }
 };
