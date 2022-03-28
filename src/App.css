@@ -8,6 +8,9 @@
   justify-content: center;
   margin: auto;
 }
+h2,p {
+  margin: 0;
+}
 ul {
   list-style-type: none;
   flex-wrap: wrap;
@@ -24,11 +27,12 @@ img {
   width: 100px;
   height: 100px;
   text-align: center;
-  margin: auto;
+  margin:30px auto;
 }
 
 li {
-  width: 150px;
+  width: 200px;
+  height: 200px;
   border: 2px solid rgb(121, 121, 131);
 }
 li:hover {
@@ -42,14 +46,13 @@ li a {
 }
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: 50px;
+  text-align: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  display: flex;
+  padding: 10px;
+    font-size: calc(10px + 2vmin);
 }
-
-.App-link {
-  color: #61dafb;
+.App-header h1 {
+  margin: 0;
 }
