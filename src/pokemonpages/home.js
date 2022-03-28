@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 const Home = () => {
-  const [error, setError] = useState(null);
+  const [error] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
   const [loadMore, setLoadMore] = useState(
     `https://pokeapi.co/api/v2/pokemon?limit=20/`
@@ -15,30 +15,31 @@ const Home = () => {
     setLoadMore(data.next);
     console.log(data);
 
-    function createPokemon(results) {
+    function getPokemon(results) {
       results.map(async (pokemon) => {
         const response2 = await fetch(
           `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
         );
         const data = await response2.json();
-   
 
-        setPokemons((currentList) => [...currentList, data]);
+        setPokemons((pokemonList) => [...pokemonList, data]);
+        await pokemons.sort((a, b) => a.name - b.name);
       });
     }
 
-    createPokemon(data.results);
+    getPokemon(data.results);
     setIsLoaded(false);
   };
-  function sortPokemon ()  {
-   return pokemons.sort((a, b) => (a.name > b.name ? 1 : -1));
-  } 
+  const sortPokemonbyName = () => {
+    setPokemons(pokemons.slice().sort((a, b) => (a.name > b.name ? 1 : -1)));
+  };
+  function sortPokemonbyType() {
+    setPokemons(pokemons.slice().sort((a, b) => (a.types[0].type.name > b.types[0].type.name ? 1 : -1)));
+  }
 
   useEffect(() => {
     fetchData();
   }, []);
-
-
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -47,27 +48,31 @@ const Home = () => {
   } else {
     return (
       <div>
-        <div className="pokemonContainer">
+        <div className="App">
           <ul>
             {pokemons &&
               pokemons.map((pokemon, index) => (
                 <li key={index}>
                   <Link to={`pokemon/${index + 1}`}>
                     <h2>{pokemon.name}</h2>
-           
-                  <p>{pokemon.types[0].type.name}</p>
-                  <img
-                    src={pokemon.sprites.other.dream_world.front_default}
-                    alt={"pokemon img"}
-                  ></img>
-                         </Link>
+
+                    <p>{pokemon.types[0].type.name}</p>
+                    <img
+                      src={pokemon.sprites.other.dream_world.front_default}
+                      alt={"pokemon img"}
+                    ></img>
+                  </Link>
                 </li>
               ))}
           </ul>
         </div>
-        {<p>Loading pokemons</p>}
         {<button onClick={() => fetchData()}>Load more</button>}
-        {<button type="submit" onClick={sortPokemon}>Sort by name</button>}
+        {<button onClick={() => sortPokemonbyName()}>Sort by name</button>}
+        {
+          <button type="submit" onClick={() => sortPokemonbyType()}>
+            Sort by type
+          </button>
+        }
       </div>
     );
   }

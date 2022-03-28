@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 const User = () => {
   let { id } = useParams();
 
-  const [error, setError] = useState(null);
+  const [error] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [pokemon, setPokemon] = useState([]);
 
@@ -13,7 +13,7 @@ const User = () => {
   const fetchData = async (id) => {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-      const data = await response.json()
+      const data = await response.json();
       console.log(data);
       setPokemon(data);
       setIsLoaded(true);
@@ -30,12 +30,11 @@ const User = () => {
   }
   if (pokemon) {
     return (
-      <div>
-        id {id}
+      <div className="pokemonCard">
         <h1>{pokemon.name}</h1>
         <div>Weight: {pokemon.weight}</div>
         <div>Height: {pokemon.height}</div>
-
+        <div>Experience: {pokemon.base_experience}</div>
       </div>
     );
   }

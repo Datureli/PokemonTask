@@ -3,7 +3,7 @@ const Navbar = () => {
   return (
     <nav className="App-header">
       <div>
-        <h1>Sort by</h1>
+        <h1>Catch them all</h1>
       </div>
     </nav>
   );

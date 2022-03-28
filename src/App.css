@@ -1,6 +1,21 @@
 .App {
-  margin: auto;
+  color: var(--text-primary);
+  background-color: var(--background);
+  font-size: large;
+  font-weight: bold;
+  transition: all 0.5s;
+}
+button {
+  color: var(--text-primary);
+  background-color: var(--background);
+  border: 2px var(--text-primary) solid;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-size: 30px;
+  text-align: center;
   justify-content: center;
+  display: flex;
+  margin:5px auto;
 }
 .pokemonContainer {
   display: flex;
@@ -8,7 +23,8 @@
   justify-content: center;
   margin: auto;
 }
-h2,p {
+h2,
+p {
   margin: 0;
 }
 ul {
@@ -19,7 +35,6 @@ ul {
   justify-content: center;
   padding: 30px;
   overflow: hidden;
-  background: rgb(105, 98, 98);
 }
 
 img {
@@ -27,7 +42,7 @@ img {
   width: 100px;
   height: 100px;
   text-align: center;
-  margin:30px auto;
+  margin: 30px auto;
 }
 
 li {
@@ -41,17 +56,26 @@ li:hover {
 li a {
   display: block;
   text-align: center;
-  color: black;
+  color: var(--text-primary);
   text-decoration: none;
 }
 .App-header {
   background-color: #282c34;
-  height: 50px;
+  color: var(--text-primary);
+  height: 50px; 
   text-align: center;
   justify-content: center;
   display: flex;
   padding: 10px;
-    font-size: calc(10px + 2vmin);
+  font-size: calc(10px + 2vmin);
+}
+.pokemonCard {
+  display: block;
+  width: 200px;
+  height: 250px;
+  border: 2px solid grey;
+  text-align: center;
+  margin: 30px auto;
 }
 .App-header h1 {
   margin: 0;
