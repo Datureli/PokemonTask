@@ -32,6 +32,7 @@ working on
 To run this project, install it locally using npm:
 
 ```
+$ git clone https://github.com/Datureli/PokemonTask.git
 $ npm install
 $ cd pokemontask
 $ npm start
